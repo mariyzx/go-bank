@@ -14,9 +14,17 @@ func (c *Account) Withdraw(withdrawAmount float64) string {
 
 	if canWithdraw {
 		c.balance -= withdrawAmount
-		return "Saque realizado com sucesso"
+		return "Withdraw successful"
 	}
-	return "Saldo insuficiente"
+	return "Insufficient balance"
+}
+
+func (c *Account) Deposit(depositAmount float64) (string, float64) {
+	if depositAmount > 0 {
+		c.balance += depositAmount
+		return "Deposit successful", c.balance
+	}
+	return "Deposit failed", c.balance
 }
 
 func main() {
@@ -44,4 +52,7 @@ func main() {
 	result := acc1.Withdraw(200.0)
 	fmt.Println(result)
 	fmt.Println(acc1.balance)
+
+	status, newBalance := acc1.Deposit(100.0)
+	fmt.Println(status, newBalance)
 }
